@@ -15,6 +15,39 @@ import baseproject.base.BaseApplication;
 public class StringUtils {
 	public final static String UTF_8 = "utf-8";
 
+	public static String timeFormat(long ago){
+		String afterTime = "未知";
+		long time = System.currentTimeMillis() - ago;
+		time /= 1000;
+		if(time < 0){
+			// TODO: 2017/10/10 xxx 后
+			return afterTime;
+		}
+		// xxx 前
+		if(time < 60){
+			afterTime = time+"秒前";
+		}else {
+			time /= 60;
+			if(time < 60){
+				afterTime = time+"分前";
+			}else {
+				time /= 24;
+				if(time < 24){
+					afterTime = time + "天前";
+				}else {
+					time /= 30;
+					if(time < 30)
+						afterTime = time + "月前";
+					else {
+						time /= 12;
+						afterTime = time+"年前";
+					}
+				}
+			}
+		}
+		return afterTime;
+	}
+
 	/** 判断字符串是否有值，如果为null或者是空字符串或者只有空格或者为"null"字符串，则返回true，否则则返回false */
 	public static boolean isEmpty(String value) {
 		if (value != null && !"".equalsIgnoreCase(value.trim())
