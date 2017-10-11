@@ -3,7 +3,11 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.eshel.currencyspirit">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk tools:overrideLibrary="com.lc.xinge,lc.com.wup,com.qq.mid"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-sdk tools:overrideLibrary="com.lc.xinge,
+                                     lc.com.wup,com.qq.mid,
+                                     me.weyye.hipermission"/>
     <application
         android:name=".CurrencySpiritApp"
         android:allowBackup="true"

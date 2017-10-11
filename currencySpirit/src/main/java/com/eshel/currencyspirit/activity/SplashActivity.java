@@ -1,5 +1,6 @@
 package com.eshel.currencyspirit.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,8 +8,12 @@ import android.support.v7.app.ActionBar;
 
 import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.R;
+import com.eshel.currencyspirit.util.PermissionUtil;
+import com.eshel.currencyspirit.util.UIUtil;
 
 import baseproject.base.BaseActivity;
+import baseproject.permission.RequestPermissionUtil;
+import baseproject.util.Log;
 
 /**
  * createBy Eshel
@@ -17,8 +22,9 @@ import baseproject.base.BaseActivity;
  */
 
 public class SplashActivity extends BaseActivity {
-
-	private int lifeTime = 300;
+	public final int ALL_TIME = 3000;
+	public final int REQUEST_PERMISSION_TIME = 1500;
+	public int lifeTime = ALL_TIME;
 	private Runnable finishSplashTask = new Runnable() {
 		@Override
 		public void run() {
@@ -49,7 +55,25 @@ public class SplashActivity extends BaseActivity {
 		ActionBar actionBar = getSupportActionBar();
 		if(actionBar != null)
 			actionBar.hide();
-		CurrencySpiritApp.getApp().getHandler().postDelayed(finishSplashTask,lifeTime);
-		new Thread(mainTask).start();
+		lifeTime = REQUEST_PERMISSION_TIME;
+		//		new Thread(mainTask).start();
+		PermissionUtil.requestPermission(this, new PermissionUtil.PermissionCallback() {
+			@Override
+			public void requestAllPermissionSuccess() {
+				CurrencySpiritApp.getApp().getHandler().postDelayed(finishSplashTask,lifeTime);
+			}
+
+			@Override
+			public void hasAllPermission() {
+				lifeTime = ALL_TIME;
+				CurrencySpiritApp.getApp().getHandler().postDelayed(finishSplashTask,lifeTime);
+			}
+		},Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		RequestPermissionUtil.onRequestPermissionsResult(this,requestCode, permissions, grantResults);
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
 }

@@ -19,6 +19,8 @@ public class EssenceModel {
 	 * new_type : 1
 	 * title : BigONE will launch today!
 	 * update_time : 1506873600000
+	 * imageurl : null
+	 * abstracts: null
 	 * url : https://help.big.one/hc/en-us/articles/115002361094-BigONE-will-launch-today-
 	 * webicon : http://static.feixiaohao.com/PlatImages/20171005/7f1317d831384881b4dbae5640bec852_15_15.png
 	 * webname : [BigOne]
@@ -29,7 +31,9 @@ public class EssenceModel {
 	public int new_type;
 	public String title;
 	public long update_time;
+	public String abstracts;
 	public String url;
+	public String imageurl;
 	public String webicon;
 	public String webname;
 	public static EssenceModel getEssenceDataByPosition(int position){

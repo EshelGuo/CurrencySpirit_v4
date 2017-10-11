@@ -32,6 +32,7 @@ import java.util.Locale;
 
 import baseproject.base.BaseFragment;
 import baseproject.util.DensityUtil;
+import baseproject.util.StringUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -170,9 +171,12 @@ public class EssenceFragment extends BaseFragment {
 				mFormat = new SimpleDateFormat(UIUtil.getString(R.string.item_time_format), Locale.getDefault());
 			time.setText(mFormat.format(new Date(essenceModel.update_time)));
 			title.setText(essenceModel.title);
-			Glide.with(getActivity()).
-					load(essenceModel.webicon)
-					.into(icon);
+			if(!StringUtils.isEmpty(essenceModel.imageurl)) {
+				Glide.with(getActivity()).
+						load(essenceModel.imageurl)
+						.into(icon);
+			} else {
+			}
 		}
 	}
 }

@@ -13,4 +13,11 @@
     <string name="item_about">关于我们</string>
     <string name="item_option">设置</string>
     <string name="string_loadmore">加载中...</string>
+    <string name="cancle">取消</string>
+    <string name="warn">警告</string>
+
+    <string name="again_accredit">再次授予权限</string>
+    <string name="goto_setting">去设置中心</string>
+    <string name="never_again">该权限非常重要, 没有该权限应用将无法运行 , 请确认是否去设置中心授予该权限</string>
+    <string name="permission_failed_msg">该权限非常重要, 没有该权限应用将无法运行 , 请确认是否授予该权限</string>
 </resources>
