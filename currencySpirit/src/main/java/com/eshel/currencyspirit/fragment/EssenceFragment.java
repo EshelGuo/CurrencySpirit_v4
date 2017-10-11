@@ -19,6 +19,8 @@ import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.R;
 import com.eshel.currencyspirit.util.UIUtil;
 import com.eshel.currencyspirit.widget.RecycleViewDivider;
+import com.eshel.currencyspirit.widget.util.GlideCircleTransform;
+import com.eshel.currencyspirit.widget.util.GlideRoundedRectangleTransform;
 import com.eshel.currencyspirit.widget.util.LoadMoreView;
 import com.eshel.model.EssenceModel;
 import com.eshel.viewmodel.EssenceViewModel;
@@ -154,7 +156,10 @@ public class EssenceFragment extends BaseFragment {
 		public EssenceViewHolder() {
 			super(LayoutInflater.from(getActivity()).inflate(R.layout.item_essence, null));
 			ButterKnife.bind(this,itemView);
-			icon.setImageDrawable(new ColorDrawable(0xFFE7E7E7));
+			Glide.with(getActivity())
+					.load(R.drawable.default_image)
+					.transform(new GlideRoundedRectangleTransform(getActivity()))
+					.into(icon);
 			icon.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 				@Override
 				public void onGlobalLayout() {
@@ -174,8 +179,13 @@ public class EssenceFragment extends BaseFragment {
 			if(!StringUtils.isEmpty(essenceModel.imageurl)) {
 				Glide.with(getActivity()).
 						load(essenceModel.imageurl)
+						.transform(new GlideRoundedRectangleTransform(getActivity()))
 						.into(icon);
 			} else {
+				Glide.with(getActivity()).
+						load(R.drawable.default_image)
+						.transform(new GlideRoundedRectangleTransform(getActivity()))
+						.into(icon);
 			}
 		}
 	}
