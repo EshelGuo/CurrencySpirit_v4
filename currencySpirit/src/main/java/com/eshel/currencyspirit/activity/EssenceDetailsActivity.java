@@ -19,6 +19,7 @@ import com.eshel.model.EssenceModel;
 
 import baseproject.base.BaseActivity;
 import baseproject.util.Log;
+import baseproject.util.NetUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,11 +53,14 @@ public class EssenceDetailsActivity extends BaseActivity {
 		if (intent != null) {
 			mEssenceModel = (EssenceModel) intent.getSerializableExtra("essenceModel");
 		}
-		mWvEssence.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		mWvEssence.getSettings().setCacheMode(NetUtils.hasNetwork(this) ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		mWvEssence.getSettings().setJavaScriptEnabled(true);
+		mWvEssence.getSettings().setUseWideViewPort(true);
+		mWvEssence.getSettings().setLoadWithOverviewMode(true);
+		mWvEssence.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 //		mWvEssence.setWebViewClient(new WebViewClient());
 		mWvEssence.getSettings().setSupportZoom(true);
-		mWvEssence.getSettings().setBuiltInZoomControls(false);
+		mWvEssence.getSettings().setBuiltInZoomControls(true);
 		mWvEssence.setWebChromeClient(new WebChromeClient(){
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
