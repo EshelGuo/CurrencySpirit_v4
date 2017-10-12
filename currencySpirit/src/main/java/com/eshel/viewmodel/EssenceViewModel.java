@@ -1,6 +1,10 @@
 package com.eshel.viewmodel;
 
+import com.eshel.cache.CacheType;
+import com.eshel.cache.DiskCache;
 import com.eshel.currencyspirit.CurrencySpiritApp;
+import com.eshel.currencyspirit.util.UIUtil;
+import com.eshel.database.dao.EssenceCacheDao;
 import com.eshel.model.EssenceModel;
 import com.eshel.net.api.NewListApi;
 import com.eshel.net.factory.RetrofitFactory;
@@ -11,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import baseproject.util.Log;
+import baseproject.util.StringUtils;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,32 +42,8 @@ public class EssenceViewModel {
 				if(response.isSuccessful()){
 					try {
 						String json = response.body().string();
-						Gson gson = new Gson();
-						final ArrayList<EssenceModel> data = gson.fromJson(json, new TypeToken<ArrayList<EssenceModel>>() {
-						}.getType());
-						start += count;
-						long refreshTime;
-						if(mode == Mode.REFRESH){
-							refreshTime = EssenceViewModel.refreshTime - getTimeDifference(ago);
-							if(refreshTime < 0)
-								refreshTime = 0;
-						}else {
-							refreshTime = 0;
-						}
-						CurrencySpiritApp.getApp().getHandler().postDelayed(new Runnable() {
-							@Override
-							public void run() {
-								if(mode ==Mode.REFRESH)
-									EssenceModel.essenceData.clear();
-								else {
-									start += count;
-								}
-								EssenceModel.loadDataCount = data.size();
-								EssenceModel.essenceData.addAll(data);
-								EssenceModel.notifyView(true);
-							}
-						},refreshTime);
-
+//						DiskCache.cacheToDisk(CacheType.Type_Essence,start,json);
+						refreshView(json, mode, ago);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -73,19 +54,58 @@ public class EssenceViewModel {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					EssenceModel.notifyView(false);
-					Log.e(EssenceViewModel.class,errMsg);
+//					String json = DiskCache.getJsonFromDiskCache(CacheType.Type_Essence, start);
+//					Log.i(json);
+					/*if(!StringUtils.isEmpty(json)) {
+						refreshView(json,mode,ago);
+					}else {*/
+					EssenceModel.notifyView(mode,false);
+					Log.e(EssenceViewModel.class, errMsg);
 				}
 			}
 
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
-				EssenceModel.notifyView(false);
+//				String json = DiskCache.getJsonFromDiskCache(CacheType.Type_Essence, start);
+//				Log.i(EssenceViewModel.class,json);
+				/*if(!StringUtils.isEmpty(json)) {
+					refreshView(json,mode,ago);
+				}else {*/
+				EssenceModel.notifyView(mode,false);
 				Log.i(call.toString());
 				t.printStackTrace();
 			}
 		});
 	}
+
+	private static void refreshView(String json, final Mode mode, long ago) {
+		Gson gson = new Gson();
+		final ArrayList<EssenceModel> data = gson.fromJson(json, new TypeToken<ArrayList<EssenceModel>>() {
+		}.getType());
+		start += count;
+		long refreshTime;
+		if(mode == Mode.REFRESH){
+			refreshTime = EssenceViewModel.refreshTime - getTimeDifference(ago);
+			if(refreshTime < 0)
+				refreshTime = 0;
+		}else {
+			refreshTime = 0;
+		}
+		CurrencySpiritApp.getApp().getHandler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				if(mode == Mode.REFRESH)
+					EssenceModel.essenceData.clear();
+				else {
+					start += count;
+				}
+				EssenceModel.loadDataCount = data.size();
+				EssenceModel.essenceData.addAll(data);
+				EssenceModel.notifyView(mode,true);
+			}
+		},refreshTime);
+	}
+
 	static long getTimeDifference(long ago){
 		long afterTime = System.currentTimeMillis();
 		return afterTime - ago;

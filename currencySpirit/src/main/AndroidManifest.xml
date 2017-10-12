@@ -25,6 +25,7 @@
         <activity
             android:name=".activity.HomeActivity"
             android:launchMode="singleTop"/>
+        <activity android:name=".activity.EssenceDetailsActivity"/>
         <!--信鸽推送-->
         <receiver android:name=".receiver.XGMessageReceiver"
                   android:exported="true" >

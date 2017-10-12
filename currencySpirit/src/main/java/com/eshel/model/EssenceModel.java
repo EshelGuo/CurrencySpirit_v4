@@ -2,7 +2,9 @@ package com.eshel.model;
 
 import com.eshel.currencyspirit.factory.FragmentFactory;
 import com.eshel.currencyspirit.fragment.EssenceFragment;
+import com.eshel.viewmodel.EssenceViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import baseproject.base.BaseFragment;
@@ -13,7 +15,7 @@ import baseproject.base.BaseFragment;
  * desc: TODO
  */
 
-public class EssenceModel {
+public class EssenceModel implements Serializable{
 	/**
 	 * id : 326
 	 * new_type : 1
@@ -36,10 +38,11 @@ public class EssenceModel {
 	public String imageurl;
 	public String webicon;
 	public String webname;
+	public boolean isClicked;
 	public static EssenceModel getEssenceDataByPosition(int position){
 		return essenceData.get(position);
 	}
-	public static void notifyView(boolean isSuccess){
+	public static void notifyView(EssenceViewModel.Mode mode , boolean isSuccess){
 		BaseFragment essenceFragment = (BaseFragment) FragmentFactory.getFragment(EssenceFragment.class);
 		if(isSuccess) {
 			if (essenceFragment.getCurrState() != BaseFragment.LoadState.StateLoadSuccess)
@@ -48,7 +51,14 @@ public class EssenceModel {
 				essenceFragment.notifyView();
 			}
 		}else {
-			essenceFragment.changeState(BaseFragment.LoadState.StateLoadFailed);
+			if(mode == EssenceViewModel.Mode.NORMAL)
+				essenceFragment.changeState(BaseFragment.LoadState.StateLoadFailed);
+			else if(mode == EssenceViewModel.Mode.REFRESH){
+				essenceFragment.refreshFailed();
+			}else {
+				essenceFragment.loadModeFailed();
+			}
+
 		}
 	}
 }

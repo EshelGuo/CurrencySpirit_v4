@@ -60,7 +60,7 @@ public class HomeActivity extends BaseActivity {
 	private final int INDEX_CURRENCY_FRAGMENT = 2;
 	private final int INDEX_USER_FRAGMENT = 3;
 
-	private int titleElevation = 5;
+	public static int titleElevation = 5;
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -234,6 +234,7 @@ public class HomeActivity extends BaseActivity {
 		if(currentTime - lastTime < exitIntervalTime){
 			super.onBackPressed();
 			lastTime = 0;
+//			System.exit(0);
 		}else {
 			lastTime = 0;
 			onBackPressed();

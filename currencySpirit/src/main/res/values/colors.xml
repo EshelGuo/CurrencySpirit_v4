@@ -7,4 +7,5 @@
     <color name="dividerColor">#cccc</color>
     <color name="item_down">#F0F0F0</color>
     <color name="item_up">@android:color/white</color>
+    <color name="progressbar_drawable">#43BF17</color>
 </resources>

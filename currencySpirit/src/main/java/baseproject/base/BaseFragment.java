@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.R;
+import com.eshel.currencyspirit.util.UIUtil;
 
 /**
  * 项目名称: BaseProject
@@ -112,6 +113,14 @@ public abstract class BaseFragment extends Fragment{
 		mControl.addView(getLoadSuccessView());
 	}
 	public abstract View getLoadSuccessView();
+	public void refreshFailed() {
+		UIUtil.toast("刷新失败");
+	}
+	public void loadModeFailed(){
+		UIUtil.toast("加载失败");
+	}
+
+
 	public enum LoadState{
 		StateLoading,StateLoadFailed,StateLoadSuccess,StateNoLoad
 	}

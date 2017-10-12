@@ -1,5 +1,6 @@
 package com.eshel.currencyspirit.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.R;
+import com.eshel.currencyspirit.activity.EssenceDetailsActivity;
 import com.eshel.currencyspirit.util.UIUtil;
 import com.eshel.currencyspirit.widget.RecycleViewDivider;
 import com.eshel.currencyspirit.widget.util.GlideCircleTransform;
@@ -143,6 +145,18 @@ public class EssenceFragment extends BaseFragment {
 		}
 	}
 
+	@Override
+	public void refreshFailed() {
+		super.refreshFailed();
+	}
+
+	@Override
+	public void loadModeFailed() {
+		super.loadModeFailed();
+		mRv_essence.onFinishLoading(false, false);
+		mRv_essence.onFinishLoading(true, false);
+	}
+
 	public class EssenceViewHolder extends RecyclerView.ViewHolder {
 
 		@BindView(R.id.time)
@@ -171,7 +185,7 @@ public class EssenceFragment extends BaseFragment {
 				}
 			});
 		}
-		public void bindDataToView(EssenceModel essenceModel){
+		public void bindDataToView(final EssenceModel essenceModel){
 			if(mFormat == null)
 				mFormat = new SimpleDateFormat(UIUtil.getString(R.string.item_time_format), Locale.getDefault());
 			time.setText(mFormat.format(new Date(essenceModel.update_time)));
@@ -186,6 +200,26 @@ public class EssenceFragment extends BaseFragment {
 						load(R.drawable.default_image)
 						.transform(new GlideRoundedRectangleTransform(getActivity()))
 						.into(icon);
+			}
+			itemView.setBackgroundResource(R.drawable.item_option_selector);
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					essenceModel.isClicked = true;
+					if(essenceModel.isClicked){
+						title.setTextColor(UIUtil.getColor(android.R.color.darker_gray));
+					}else {
+						title.setTextColor(UIUtil.getColor(android.R.color.black));
+					}
+					Intent intent = new Intent(getActivity(), EssenceDetailsActivity.class);
+					intent.putExtra("essenceModel",essenceModel);
+					startActivity(intent);
+				}
+			});
+			if(essenceModel.isClicked){
+				title.setTextColor(UIUtil.getColor(android.R.color.darker_gray));
+			}else {
+				title.setTextColor(UIUtil.getColor(android.R.color.black));
 			}
 		}
 	}

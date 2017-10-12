@@ -18,6 +18,7 @@ public class BaseActivity extends AppCompatActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		TAG = getClass().getSimpleName();
 		super.onCreate(savedInstanceState);
+
 	}
 
 	@Override

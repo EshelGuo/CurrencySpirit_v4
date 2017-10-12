@@ -84,171 +84,258 @@ private static int log_levele = LEVELE_V;
 	}
 
 	public static int v(Object msg){
+		if(msg == null)
+			msg = "null";
 		return v(TAG,msg.toString());
 	}
 	public static int d(Object msg){
+		if(msg == null)
+			msg = "null";
 		return d(TAG,msg.toString());
 	}
 	public static int i(Object msg){
+		if(msg == null)
+			msg = "null";
 		return i(TAG,msg.toString());
 	}
 	public static int w(Object msg){
+		if(msg == null)
+			msg = "null";
 		return w(TAG,msg.toString());
 	}
 	public static int e(Object msg){
+		if(msg == null)
+			msg = "null";
 		return e(TAG,msg.toString());
 	}
 	public static int wtf(Object msg){
+		if(msg == null)
+			msg = "null";
 		return wtf(TAG,msg.toString());
 	}
 
 	public static int v(Object tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return v(tag.getClass().getSimpleName(),msg.toString());
 	}
 	public static int d(Object tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return d(tag.getClass().getSimpleName(),msg.toString());
 	}
 	public static int i(Object tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return i(tag.getClass().getSimpleName(),msg.toString());
 	}
 	public static int w(Object tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return w(tag.getClass().getSimpleName(),msg.toString());
 	}
 	public static int e(Object tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return e(tag.getClass().getSimpleName(),msg.toString());
 	}
 	public static int wtf(Object tag, Object msg){
+		if(msg == null)
+			msg = "null";
 		return wtf(tag.getClass().getSimpleName(),msg.toString());
 	}
 
 	public static int v(Class tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return v(tag.getSimpleName(),msg.toString());
 	}
 	public static int d(Class tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return d(tag.getSimpleName(),msg.toString());
 	}
 	public static int i(Class tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return i(tag.getSimpleName(),msg.toString());
 	}
 	public static int w(Class tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return w(tag.getSimpleName(),msg.toString());
 	}
 	public static int e(Class tag,Object msg){
+		if(msg == null)
+			msg = "null";
 		return e(tag.getSimpleName(),msg.toString());
 	}
 	public static int wtf(Class tag, Object msg){
+		if(msg == null)
+			msg = "null";
 		return wtf(tag.getSimpleName(),msg.toString());
 	}
 
 	public static int vWriteToFile(Object msg){
+		if(msg == null)
+			msg = "null";
 		return vWriteToFile(TAG,msg.toString());
 	}
 	public static int dWriteToFile(Object msg){
+		if(msg == null)
+			msg = "null";
 		return dWriteToFile(TAG,msg.toString());
 	}
 	public static int iWriteToFile(Object msg){
+		if(msg == null)
+			msg = "null";
 		return iWriteToFile(TAG,msg.toString());
 	}
 	public static int wWriteToFile(Object msg){
+		if(msg == null)
+			msg = "null";
 		return wWriteToFile(TAG,msg.toString());
 	}
 	public static int eWriteToFile(Object msg){
+		if(msg == null)
+			msg = "null";
 		return eWriteToFile(TAG,msg.toString());
 	}
 	public static int wtfWriteToFile(Object msg){
+		if(msg == null)
+			msg = "null";
 		return wtfWriteToFile(TAG,msg.toString());
 	}
 
 	public static int vWriteToFile(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		int code = v(TAG, msg.toString());
 		writeLogToFile(TAG,msg.toString(),LEVELE_V);
 		return code;
 	}
 	public static int dWriteToFile(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		int code = d(TAG, msg.toString());
 		writeLogToFile(TAG,msg.toString(),LEVELE_D);
 		return code;
 	}
 	public static int iWriteToFile(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		int code = i(TAG, msg.toString());
 		writeLogToFile(TAG,msg.toString(),LEVELE_I);
 		return code;
 	}
 	public static int wWriteToFile(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		int code = w(TAG, msg.toString());
 		writeLogToFile(TAG,msg.toString(),LEVELE_W);
 		return code;
 	}
 	public static int eWriteToFile(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		int code = e(TAG, msg.toString());
 		writeLogToFile(TAG,msg.toString(),LEVELE_E);
 		return code;
 	}
 	public static int wtfWriteToFile(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		int code = wtf(TAG, msg.toString());
 		writeLogToFile(TAG,msg.toString(),LEVELE_WTF);
 		return code;
 	}
 
 	public static int v(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		return v(TAG,msg.toString());
 	}
 	public static int d(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		return d(TAG,msg.toString());
 	}
 	public static int i(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		return i(TAG,msg.toString());
 	}
 	public static int w(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		return w(TAG,msg.toString());
 	}
 	public static int e(String TAG, Object msg){
+		if(msg == null)
+			msg = "null";
 		return e(TAG,msg.toString());
 	}
 	public static int wtf(String TAG, Object msg){
+
 		return wtf(TAG,msg.toString());
 	}
 
 	public static int v(String tag, String msg) {
 		if(log_levele > LEVELE_V) return -1;
+		if(msg == null)
+			msg = "null";
 		writeLogToFileByTag(tag,msg,LEVELE_V);
 		return android.util.Log.v(tag, msg);
 	}
 	public static int v(String tag, String msg, Throwable tr) {
 		if(log_levele > LEVELE_V) return -1;
+		if(msg == null)
+			msg = "null";
 		return  android.util.Log.v(tag, msg, tr);
 	}
 
 	public static int d(String tag, String msg) {
 		if(log_levele > LEVELE_D) return -1;
+		if(msg == null)
+			msg = "null";
 		writeLogToFileByTag(tag,msg,LEVELE_D);
 		return android.util.Log.d(tag, msg);
 	}
 
 	public static int d(String tag, String msg, Throwable tr) {
 		if(log_levele > LEVELE_D) return -1;
+		if(msg == null)
+			msg = "null";
 		return android.util.Log.d(tag, msg, tr);
 	}
 
 	public static int i(String tag, String msg) {
 		if(log_levele > LEVELE_I) return -1;
+		if(msg == null)
+			msg = "null";
 		writeLogToFileByTag(tag,msg,LEVELE_I);
 		return android.util.Log.i(tag, msg);
 	}
 
 	public static int i(String tag, String msg, Throwable tr) {
 		if(log_levele > LEVELE_I) return -1;
+		if(msg == null)
+			msg = "null";
 		return android.util.Log.i(tag, msg, tr);
 	}
 
 	public static int w(String tag, String msg) {
 		if(log_levele > LEVELE_W) return -1;
+		if(msg == null)
+			msg = "null";
 		writeLogToFileByTag(tag,msg,LEVELE_W);
 		return android.util.Log.w(tag, msg);
 	}
 
 	public static int w(String tag, String msg, Throwable tr) {
 		if(log_levele > LEVELE_W) return -1;
+		if(msg == null)
+			msg = "null";
 		return android.util.Log.w(tag, msg, tr);
 	}
 
@@ -260,15 +347,21 @@ private static int log_levele = LEVELE_V;
 	public static int e(String tag, String msg) {
 		if(log_levele > LEVELE_E) return -1;
 		writeLogToFileByTag(tag,msg,LEVELE_E);
+		if(msg == null)
+			msg = "null";
 		return android.util.Log.e(tag, msg);
 	}
 
 	public static int e(String tag, String msg, Throwable tr) {
 		if(log_levele > LEVELE_E) return -1;
+		if(msg == null)
+			msg = "null";
 		return android.util.Log.e(tag, msg, tr);
 	}
 	public static int wtf(String tag, String msg) {
 		if(log_levele > LEVELE_WTF) return -1;
+		if(msg == null)
+			msg = "null";
 		writeLogToFileByTag(tag,msg,LEVELE_WTF);
 		return android.util.Log.wtf(tag, msg);
 	}
@@ -280,6 +373,8 @@ private static int log_levele = LEVELE_V;
 
 	public static int wtf(String tag, String msg, Throwable tr) {
 		if(log_levele > LEVELE_WTF) return -1;
+		if(msg == null)
+			msg = "null";
 		return android.util.Log.wtf(tag, msg, tr);
 	}
 	private static void writeLogToFileByTag(String tag, String msg, int levele){
@@ -329,12 +424,12 @@ private static int log_levele = LEVELE_V;
 		mContext = context;
 		String[] packageName = mContext.getPackageName().split("\\.");
 		StringBuilder sb = new StringBuilder();
-		for (int i = 1; i < packageName.length; i++) {
+		/*for (int i = 1; i < packageName.length; i++) {
 			String node = packageName[i];
 			sb.append(node.toUpperCase().charAt(0));
 			sb.append(node.substring(1,node.length()));
 		}
-		TAG = sb.toString();
+		TAG = sb.toString();*/
 		logFormat = new SimpleDateFormat("yy-MM-dd hh:mm:ss",Locale.getDefault());
 		tagForWriteLog = new ArrayList<>();
 		logCache = new LinkedList<>();
