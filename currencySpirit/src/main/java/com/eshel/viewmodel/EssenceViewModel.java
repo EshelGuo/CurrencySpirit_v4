@@ -5,6 +5,8 @@ import com.eshel.cache.DiskCache;
 import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.util.UIUtil;
 import com.eshel.database.dao.EssenceCacheDao;
+import com.eshel.database.dao.EssenceHistoryDao;
+import com.eshel.database.table.EssenceHistory;
 import com.eshel.model.EssenceModel;
 import com.eshel.net.api.NewListApi;
 import com.eshel.net.factory.RetrofitFactory;
@@ -32,6 +34,21 @@ public class EssenceViewModel {
 	static int count = 20;
 
 	static long refreshTime = 2000;
+	public static void getEssenceDataFromHistory(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				EssenceModel.transitionData(EssenceHistoryDao.queryAll());
+				CurrencySpiritApp.getApp().getHandler().post(new Runnable() {
+					@Override
+					public void run() {
+						EssenceModel.notifyHistoryActivity();
+					}
+				});
+			}
+		}).start();
+	}
+
 	public static void getEssenceData(final Mode mode ){
 		final long ago = System.currentTimeMillis();
 		NewListApi newListApi = RetrofitFactory.getRetrofit().create(NewListApi.class);
@@ -113,6 +130,14 @@ public class EssenceViewModel {
 	public static void refreshData(){
 		start = 0;
 		getEssenceData(Mode.REFRESH);
+	}
+	public static void addDataToHistory(EssenceModel model){
+		EssenceHistory history = EssenceHistoryDao.queryById(model.id);
+		if(history == null)
+			EssenceHistoryDao.add(model);
+		else {
+			EssenceHistoryDao.update(model);
+		}
 	}
 	public enum Mode{
 		NORMAL,REFRESH,LOADMORE;

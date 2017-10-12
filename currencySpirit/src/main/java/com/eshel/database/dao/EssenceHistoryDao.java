@@ -62,7 +62,9 @@ public class EssenceHistoryDao {
 	}
 	public static List<EssenceHistory> queryAll(){
 		try {
-			return getDao().queryForAll();
+			Dao<EssenceHistory, Integer> dao = getDao();
+			if(dao!= null)
+				return dao.queryForAll();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

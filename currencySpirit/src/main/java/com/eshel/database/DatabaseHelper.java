@@ -20,7 +20,7 @@ public  class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Map<String, Dao> daos = new HashMap<String, Dao>();  
     private Dao<EssenceCacheTable, Integer> EssenceCacheDao;
     private DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 4);
+        super(context, DATABASE_NAME, null, 5);
     }  
   
     @Override  
@@ -31,7 +31,7 @@ public  class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         } catch (SQLException e) {
             e.printStackTrace();  
         }  
-    }  
+    }
   
     @Override  
     public void onUpgrade(SQLiteDatabase database,  

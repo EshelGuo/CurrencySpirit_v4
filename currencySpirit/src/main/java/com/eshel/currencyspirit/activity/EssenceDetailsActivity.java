@@ -41,9 +41,7 @@ public class EssenceDetailsActivity extends BaseActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_essence_details);
-		ActionBar actionBar = getSupportActionBar();
-		if (actionBar != null)
-			actionBar.hide();
+		hideActionBar();
 		ButterKnife.bind(this);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			mTitle.setElevation(HomeActivity.titleElevation);

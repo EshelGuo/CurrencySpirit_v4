@@ -38,4 +38,17 @@ public class EssenceHistory {
 		webicon = model.webicon;
 		webname = model.webname;
 	}
+	public EssenceModel get(EssenceHistory history){
+		EssenceModel essenceModel = new EssenceModel();
+		essenceModel.id = history.id;
+		essenceModel.new_type = history.new_type;
+		essenceModel.title = history.title;
+		essenceModel.update_time = history.update_time;
+		essenceModel.abstracts = history.abstracts;
+		essenceModel.url = history.url;
+		essenceModel.imageurl = history.imageurl;
+		essenceModel.webicon = history.webicon;
+		essenceModel.webname = history.webname;
+		return essenceModel;
+	}
 }

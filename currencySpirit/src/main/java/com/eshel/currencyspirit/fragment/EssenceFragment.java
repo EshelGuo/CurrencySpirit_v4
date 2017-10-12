@@ -24,6 +24,7 @@ import com.eshel.currencyspirit.widget.RecycleViewDivider;
 import com.eshel.currencyspirit.widget.util.GlideCircleTransform;
 import com.eshel.currencyspirit.widget.util.GlideRoundedRectangleTransform;
 import com.eshel.currencyspirit.widget.util.LoadMoreView;
+import com.eshel.database.dao.EssenceHistoryDao;
 import com.eshel.model.EssenceModel;
 import com.eshel.viewmodel.EssenceViewModel;
 import com.lhh.ptrrv.library.PullToRefreshRecyclerView;
@@ -201,7 +202,7 @@ public class EssenceFragment extends BaseFragment {
 						.transform(new GlideRoundedRectangleTransform(getActivity()))
 						.into(icon);
 			}
-			itemView.setBackgroundResource(R.drawable.item_option_selector);
+			itemView.setBackgroundResource(R.drawable.item_selector);
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -211,6 +212,7 @@ public class EssenceFragment extends BaseFragment {
 					}else {
 						title.setTextColor(UIUtil.getColor(android.R.color.black));
 					}
+					EssenceViewModel.addDataToHistory(essenceModel);
 					Intent intent = new Intent(getActivity(), EssenceDetailsActivity.class);
 					intent.putExtra("essenceModel",essenceModel);
 					startActivity(intent);

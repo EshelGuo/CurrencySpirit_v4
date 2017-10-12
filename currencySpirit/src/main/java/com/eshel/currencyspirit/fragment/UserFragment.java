@@ -1,5 +1,6 @@
 package com.eshel.currencyspirit.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.eshel.currencyspirit.R;
+import com.eshel.currencyspirit.activity.EssenceHistoryActivity;
 import com.eshel.currencyspirit.widget.OptionItemView;
 import com.eshel.currencyspirit.widget.OverScrollView;
 
@@ -47,7 +49,7 @@ public class UserFragment extends BaseFragment {
 		mSuccessViewHolder.itemHistory.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(),"历史",Toast.LENGTH_LONG).show();
+				startActivity(new Intent(getActivity(), EssenceHistoryActivity.class));
 			}
 		});
 		mSuccessViewHolder.itemAbout.setOnClickListener(new View.OnClickListener() {

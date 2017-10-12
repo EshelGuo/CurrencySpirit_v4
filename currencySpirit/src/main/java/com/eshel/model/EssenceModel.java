@@ -1,12 +1,16 @@
 package com.eshel.model;
 
+import com.eshel.currencyspirit.activity.EssenceHistoryActivity;
 import com.eshel.currencyspirit.factory.FragmentFactory;
 import com.eshel.currencyspirit.fragment.EssenceFragment;
+import com.eshel.database.table.EssenceHistory;
 import com.eshel.viewmodel.EssenceViewModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
+import baseproject.base.BaseActivity;
 import baseproject.base.BaseFragment;
 
 /**
@@ -28,6 +32,7 @@ public class EssenceModel implements Serializable{
 	 * webname : [BigOne]
 	 */
 	public static ArrayList<EssenceModel> essenceData = new ArrayList<>();
+	public static List<EssenceModel> historyData = new ArrayList<>();
 	public static int loadDataCount = 20;
 	public int id;
 	public int new_type;
@@ -41,6 +46,19 @@ public class EssenceModel implements Serializable{
 	public boolean isClicked;
 	public static EssenceModel getEssenceDataByPosition(int position){
 		return essenceData.get(position);
+	}
+	public static EssenceModel getHistoryDataByPosition(int position){
+		return historyData.get(position);
+	}
+	public static List<EssenceModel> transitionData(List<EssenceHistory> originalData){
+		if(originalData == null)
+			return null;
+		List<EssenceModel> transitionData = historyData;
+		transitionData.clear();
+		for (EssenceHistory history : originalData) {
+			transitionData.add(history.get(history));
+		}
+		return transitionData;
 	}
 	public static void notifyView(EssenceViewModel.Mode mode , boolean isSuccess){
 		BaseFragment essenceFragment = (BaseFragment) FragmentFactory.getFragment(EssenceFragment.class);
@@ -59,6 +77,12 @@ public class EssenceModel implements Serializable{
 				essenceFragment.loadModeFailed();
 			}
 
+		}
+	}
+	public static void notifyHistoryActivity(){
+		EssenceHistoryActivity activity = (EssenceHistoryActivity) BaseActivity.getActivity(EssenceHistoryActivity.class);
+		if(activity != null){
+			activity.notifyView();
 		}
 	}
 }
