@@ -1,5 +1,6 @@
 package com.eshel.currencyspirit.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.R;
+import com.eshel.currencyspirit.activity.WeiboDetailsActivity;
 import com.eshel.currencyspirit.util.UIUtil;
 import com.eshel.currencyspirit.widget.RecycleViewDivider;
 import com.eshel.currencyspirit.widget.util.GlideCircleTransform;
@@ -50,6 +52,11 @@ public class InformationFragment extends BaseFragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		InformationViewModel.getInformationData(InformationViewModel.Mode.NORMAL);
+	}
+
+	@Override
+	protected void reloadData() {
 		InformationViewModel.getInformationData(InformationViewModel.Mode.NORMAL);
 	}
 
@@ -155,6 +162,23 @@ public class InformationFragment extends BaseFragment {
 		public InformationViewHolder() {
 			super(LayoutInflater.from(getActivity()).inflate(R.layout.item_information, null));
 			ButterKnife.bind(this, itemView);
+			int itemHeight = (int) (UIUtil.getScreenWidth() * 0.1935f);
+			ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+			if(layoutParams == null){
+				layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,itemHeight);
+			}else {
+				layoutParams.height = itemHeight;
+			}
+			itemView.setLayoutParams(layoutParams);
+			ViewGroup.LayoutParams imageParams = mIvIcon.getLayoutParams();
+			if(imageParams == null){
+				imageParams = new ViewGroup.LayoutParams(itemHeight,itemHeight);
+			}else {
+				imageParams.height = itemHeight;
+				imageParams.width = itemHeight;
+			}
+			mIvIcon.setLayoutParams(imageParams);
+			itemView.setBackgroundResource(R.drawable.item_selector);
 //			mIvIcon.setImageDrawable(new ColorDrawable(0xFFE7E7E7));
 			/*mIvIcon.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 				@Override
@@ -168,7 +192,7 @@ public class InformationFragment extends BaseFragment {
 			});*/
 		}
 
-		public void bindDataToView(InformationModel informationModel) {
+		public void bindDataToView(final InformationModel informationModel) {
 			mTvTime.setText(StringUtils.timeFormat(informationModel.update_time));
 			mTvTitle.setText(informationModel.wbname);
 			mTvDesc.setText(informationModel.text);
@@ -176,6 +200,14 @@ public class InformationFragment extends BaseFragment {
 					load(informationModel.imageurl)
 					.transform(new GlideCircleTransform(getActivity()))
 					.into(mIvIcon);
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), WeiboDetailsActivity.class);
+					intent.putExtra(WeiboDetailsActivity.key,informationModel);
+					startActivity(intent);
+				}
+			});
 		}
 	}
 }

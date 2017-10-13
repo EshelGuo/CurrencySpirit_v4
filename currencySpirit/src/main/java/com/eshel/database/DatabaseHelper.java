@@ -15,13 +15,15 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
+import org.json.JSONObject;
+
 public  class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "CurrencySpiritSqlite.db";
     private Map<String, Dao> daos = new HashMap<String, Dao>();  
     private Dao<EssenceCacheTable, Integer> EssenceCacheDao;
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 5);
-    }  
+    }
   
     @Override  
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {

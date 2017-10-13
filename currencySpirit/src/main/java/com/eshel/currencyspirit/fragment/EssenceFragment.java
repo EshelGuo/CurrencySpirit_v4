@@ -59,6 +59,11 @@ public class EssenceFragment extends BaseFragment {
 	}
 
 	@Override
+	protected void reloadData() {
+		EssenceViewModel.getEssenceData(EssenceViewModel.Mode.NORMAL);
+	}
+
+	@Override
 	public View getLoadSuccessView() {
 		ViewGroup parent = (ViewGroup) View.inflate(getActivity(), R.layout.view_essence, null);
 		mRv_essence = (PullToRefreshRecyclerView) parent.findViewById(R.id.rv_essence);
@@ -214,7 +219,7 @@ public class EssenceFragment extends BaseFragment {
 					}
 					EssenceViewModel.addDataToHistory(essenceModel);
 					Intent intent = new Intent(getActivity(), EssenceDetailsActivity.class);
-					intent.putExtra("essenceModel",essenceModel);
+					intent.putExtra(EssenceDetailsActivity.key,essenceModel);
 					startActivity(intent);
 				}
 			});

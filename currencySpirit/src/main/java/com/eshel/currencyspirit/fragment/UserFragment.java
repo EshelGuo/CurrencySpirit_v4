@@ -36,7 +36,7 @@ public class UserFragment extends BaseFragment {
 			public void run() {
 				changeState(LoadState.StateLoadSuccess);
 			}
-		}, 500);
+		}, 100);
 		unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
@@ -79,6 +79,11 @@ public class UserFragment extends BaseFragment {
 		super.onDestroyView();
 		unbinder.unbind();
 	}
+
+	@Override
+	protected void reloadData() {
+	}
+
 	class SuccessViewHolder{
 		@BindView(R.id.item_icon)
 		OptionItemView itemIcon;

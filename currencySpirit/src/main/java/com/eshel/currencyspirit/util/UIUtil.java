@@ -13,6 +13,10 @@ import com.eshel.currencyspirit.CurrencySpiritApp;
 public class UIUtil {
 
 	private static Toast mToast;
+	private static boolean debug;
+	public static void setDebug(boolean isDebug){
+		debug = isDebug;
+	}
 
 	public static String getString(int resId){
 		return CurrencySpiritApp.getContext().getResources().getString(resId);
@@ -20,21 +24,37 @@ public class UIUtil {
 	public static int getColor(int resId){
 		return CurrencySpiritApp.getContext().getResources().getColor(resId);
 	}
+	public static void debugToast(CharSequence text){
+		if(debug)
+			toast(text);
+	}
 	public static void toast(final CharSequence text){
-		CurrencySpiritApp.getApp().getHandler().post(new Runnable() {
-			@Override
-			public void run() {
-				if(mToast == null) {
-					synchronized (Toast.class) {
-						if(mToast == null) {
-							mToast = Toast.makeText(CurrencySpiritApp.getContext(), text, Toast.LENGTH_LONG);
-						}
-					}
-				}else {
-					mToast.setText(text);
+		if(Thread.currentThread().getName().equals(CurrencySpiritApp.getMainThreadName()))
+			showToast(text);
+		else
+			CurrencySpiritApp.getApp().getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					showToast(text);
 				}
-				mToast.show();
+			});
+	}
+	private static void showToast(CharSequence text){
+		if(mToast == null) {
+			synchronized (Toast.class) {
+				if(mToast == null) {
+					mToast = Toast.makeText(CurrencySpiritApp.getContext(), text, Toast.LENGTH_LONG);
+				}
 			}
-		});
+		}else {
+			mToast.setText(text);
+		}
+		mToast.show();
+	}
+	public static int getScreenHeight(){
+		return CurrencySpiritApp.getContext().getResources().getDisplayMetrics().heightPixels;
+	}
+	public static int getScreenWidth(){
+		return CurrencySpiritApp.getContext().getResources().getDisplayMetrics().widthPixels;
 	}
 }

@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.eshel.currencyspirit.util.UIUtil;
+
 public class RecycleViewDivider extends RecyclerView.ItemDecoration {
 
     private Paint mPaint;
@@ -19,6 +21,8 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     private int mOrientation;//列表的方向：LinearLayoutManager.VERTICAL或LinearLayoutManager.HORIZONTAL
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
 
+    public int bgColor = UIUtil.getColor(android.R.color.white);
+    public int dividerColor = UIUtil.getColor(android.R.color.darker_gray);
     /**
      * 默认分割线：高度为2px，颜色为灰色
      *
@@ -66,6 +70,7 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
     }
     public RecycleViewDivider(Context context, int orientation, int dividerHeight, int dividerColor,int left, int right) {
         this(context, orientation);
+        this.dividerColor = dividerColor;
         mDividerHeight = dividerHeight;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(dividerColor);
@@ -114,11 +119,15 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
             final int top = child.getBottom() + layoutParams.bottomMargin;
             final int bottom = top + mDividerHeight;
             if (mDivider != null) {
-                mDivider.setBounds(left, top, right, bottom);
+                mDivider.setBounds(parent.getPaddingLeft(), top, parent.getMeasuredWidth() - parent.getPaddingRight(), bottom);
                 mDivider.draw(canvas);
             }
             if (mPaint != null) {
                 canvas.drawRect(left, top, right, bottom, mPaint);
+                mPaint.setColor(bgColor);
+                canvas.drawRect(parent.getPaddingLeft(), top, left, bottom, mPaint);
+                canvas.drawRect(right, top, parent.getMeasuredWidth() - parent.getPaddingRight(), bottom, mPaint);
+                mPaint.setColor(dividerColor);
             }
         }
     }

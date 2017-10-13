@@ -6,6 +6,10 @@ package com.eshel.net;
  * desc: TODO
  */
 
-public interface Url {
-	String baseUrl = "https://fengzhihen.com/btcapp/";
+public class Url {
+	public static String baseUrl = "https://fengzhihen.com/btcapp/";
+	public static String weibboBaseUrl = "https://m.weibo.cn/status/";
+	public static String getWeiboUrl(String weiboId){
+		return weibboBaseUrl.concat(weiboId);
+	}
 }

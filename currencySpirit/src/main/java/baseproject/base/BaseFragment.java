@@ -76,9 +76,20 @@ public abstract class BaseFragment extends Fragment{
 	}
 	private void setLoadFailedView(){
 		View loadFailedView = View.inflate(getActivity(),R.layout.fragment_load_failed,null);
+		TextView tv_failed = (TextView) loadFailedView.findViewById(R.id.tv_failed);
+		tv_failed.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				changeState(LoadState.StateLoading);
+				reloadData();
+			}
+		});
 		mControl.removeAllViews();
 		mControl.addView(loadFailedView);
 	}
+
+	protected abstract void reloadData();
+
 	private String getTitle(){
 		return getClass().getSimpleName();
 	}

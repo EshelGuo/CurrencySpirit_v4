@@ -9,8 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.eshel.currencyspirit.R;
-import com.eshel.currencyspirit.util.UIUtil;
-import com.eshel.model.EssenceModel;
+import com.eshel.model.InformationModel;
+import com.eshel.net.Url;
 
 import baseproject.base.WebActivity;
 import butterknife.BindView;
@@ -20,22 +20,17 @@ import butterknife.ButterKnife;
  * Created by guoshiwen on 2017/10/12.
  */
 
-public class EssenceDetailsActivity extends WebActivity {
-	public static String key = "essenceModel";
-	private EssenceModel mEssenceModel;
+public class WeiboDetailsActivity extends WebActivity {
+	public static String key = "informationModel";
+	private InformationModel mInformationModel;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		Intent intent = getIntent();
 		if (intent != null) {
-			mEssenceModel = (EssenceModel) intent.getSerializableExtra(key);
-		}
-		if (mEssenceModel.url != null) {
-			loadUrl(mEssenceModel.url);
-		} else {
-			UIUtil.toast("加载失败");
+			mInformationModel = (InformationModel) intent.getSerializableExtra(key);
+			loadUrl(Url.getWeiboUrl(mInformationModel.wbid));
 		}
 	}
 
@@ -45,14 +40,15 @@ public class EssenceDetailsActivity extends WebActivity {
 	}
 
 	class TitleHolder {
-		public View mView;
+
+		private final View mView;
 		@BindView(R.id.title)
-		public TextView mTitle;
+		TextView mTitle;
 		@BindView(R.id.rl_title)
 		RelativeLayout mRlTitle;
 
 		public TitleHolder() {
-			mView = View.inflate(EssenceDetailsActivity.this, R.layout.activity_essence_details, null);
+			mView = View.inflate(WeiboDetailsActivity.this, R.layout.activity_weibo_details, null);
 			ButterKnife.bind(this, mView);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 				mRlTitle.setElevation(HomeActivity.titleElevation);

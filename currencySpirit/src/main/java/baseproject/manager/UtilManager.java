@@ -1,6 +1,8 @@
 package baseproject.manager;
 
 
+import com.eshel.currencyspirit.util.UIUtil;
+
 import baseproject.base.BaseApplication;
 import baseproject.interfaces.Utilable;
 import baseproject.util.DensityUtil;
@@ -34,6 +36,7 @@ public class UtilManager {
 
 	public static void setUtilConfig(){
 		Log.openLog();
+		UIUtil.setDebug(true);
 		ShapeUtil.setDefaultName("config.sp");
 	}
 

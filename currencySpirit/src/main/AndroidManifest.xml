@@ -27,6 +27,7 @@
             android:launchMode="singleTop"/>
         <activity android:name=".activity.EssenceDetailsActivity"/>
         <activity android:name=".activity.EssenceHistoryActivity"/>
+        <activity android:name=".activity.WeiboDetailsActivity"/>
         <!--信鸽推送-->
         <receiver android:name=".receiver.XGMessageReceiver"
                   android:exported="true" >

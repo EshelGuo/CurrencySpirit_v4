@@ -4,6 +4,7 @@ import com.eshel.currencyspirit.factory.FragmentFactory;
 import com.eshel.currencyspirit.fragment.EssenceFragment;
 import com.eshel.currencyspirit.fragment.InformationFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import baseproject.base.BaseFragment;
@@ -12,7 +13,7 @@ import baseproject.base.BaseFragment;
  * Created by guoshiwen on 2017/10/10.
  */
 
-public class InformationModel {
+public class InformationModel implements Serializable{
 	/**
 	 * from_device : 微博 weibo.com
 	 * from_web : WEIBO
@@ -31,7 +32,7 @@ public class InformationModel {
 	public String from_web;
 	public int id;
 	public String imageurl;
-	public Object rawText;
+	public String rawText;
 	public String text;
 	public String uid;
 	public long update_time;

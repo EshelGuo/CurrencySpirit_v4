@@ -12,6 +12,11 @@ import baseproject.base.BaseFragment;
 
 public class CurrencyFragment extends BaseFragment{
 	@Override
+	protected void reloadData() {
+
+	}
+
+	@Override
 	public View getLoadSuccessView() {
 		return null;
 	}
