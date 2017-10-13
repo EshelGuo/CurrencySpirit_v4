@@ -122,7 +122,15 @@ public abstract class WebActivity extends BaseActivity {
 				return true;
 			}
 		}
+		System.exit(0);
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mWvEssence.removeAllViews();
+		mWvEssence.destroy();
 	}
 
 	public void reLoad() {

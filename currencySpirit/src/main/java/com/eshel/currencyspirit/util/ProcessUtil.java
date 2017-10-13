@@ -44,4 +44,14 @@ public class ProcessUtil {
 			}
 		}
 	}
+	public static String getCurrentProcessName(Context context){
+		int pid = android.os.Process.myPid();
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		for (ActivityManager.RunningAppProcessInfo runningAppProcessInfo : am.getRunningAppProcesses()) {
+			if(runningAppProcessInfo.pid == pid){
+				return runningAppProcessInfo.processName;
+			}
+		}
+		return null;
+	}
 }

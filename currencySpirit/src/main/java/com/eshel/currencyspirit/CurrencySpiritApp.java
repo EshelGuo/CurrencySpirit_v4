@@ -3,6 +3,7 @@ package com.eshel.currencyspirit;
 import android.content.ClipboardManager;
 import android.content.Context;
 
+import com.eshel.currencyspirit.util.ProcessUtil;
 import com.eshel.currencyspirit.util.UIUtil;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
@@ -24,8 +25,17 @@ public class CurrencySpiritApp extends BaseApplication{
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Log.i("appprocess: "+ProcessUtil.getCurrentProcessName(getApplicationContext()));
 		app = this;
 		mainThreadName = Thread.currentThread().getName();
+		String currentProcessName = ProcessUtil.getCurrentProcessName(getApplicationContext());
+		if(currentProcessName.equals(getPackageName())) {
+			mainOnCreate();
+		}else {
+			otherOnCreate(currentProcessName);
+		}
+	}
+	public void mainOnCreate(){
 		//开启信鸽日志输出
 		XGPushConfig.enableDebug(this, UIUtil.isDebug());
 		//信鸽注册代码
@@ -33,18 +43,20 @@ public class CurrencySpiritApp extends BaseApplication{
 			@Override
 			public void onSuccess(Object data, int flag) {
 				Log.i("TPush", "注册成功，设备token为：" + data);
-				if(UIUtil.isDebug()) {
+				if (UIUtil.isDebug()) {
 					ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 					clipboardManager.setText(data.toString());
 					UIUtil.debugToast("token 已经成功复制到剪切板 , 请使用 token 调试");
 				}
 			}
+
 			@Override
 			public void onFail(Object data, int errCode, String msg) {
 				Log.i("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
 			}
 		});
 	}
+	public void otherOnCreate(String currentProcessName){}
 
 	@Override
 	public void onTerminate() {

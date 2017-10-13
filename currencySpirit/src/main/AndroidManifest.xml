@@ -26,9 +26,11 @@
         <!--android:launchMode="singleTop"-->
         <activity
             android:name=".activity.HomeActivity"/>
-        <activity android:name=".activity.EssenceDetailsActivity"/>
+        <activity android:name=".activity.EssenceDetailsActivity"
+            android:process=":process_essence_details"/>
         <activity android:name=".activity.EssenceHistoryActivity"/>
-        <activity android:name=".activity.WeiboDetailsActivity"/>
+        <activity android:name=".activity.WeiboDetailsActivity"
+            android:process=":process_weibo_details"/>
         <!--信鸽推送-->
         <receiver android:name="xgpush.receiver.XGMessageReceiver"
                   android:exported="true" >

@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
 
+import com.eshel.currencyspirit.util.ProcessUtil;
+import com.eshel.currencyspirit.util.UIUtil;
+
 import baseproject.manager.UtilManager;
 
 /**
@@ -22,6 +25,7 @@ private static Handler mHandler;
 		mContext = getApplicationContext();
 		mHandler = new Handler();
 		UtilManager.initUtils();
+//		if()
 	}
 
 
