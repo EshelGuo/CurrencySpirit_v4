@@ -20,22 +20,24 @@ import baseproject.util.Log;
 public class CurrencySpiritApp extends BaseApplication{
 	private static CurrencySpiritApp app;
 	private static String mainThreadName;
-
+	public static boolean isExit = false;
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		app = this;
 		mainThreadName = Thread.currentThread().getName();
 		//开启信鸽日志输出
-		XGPushConfig.enableDebug(this, true);
+		XGPushConfig.enableDebug(this, UIUtil.isDebug());
 		//信鸽注册代码
 		XGPushManager.registerPush(this, new XGIOperateCallback() {
 			@Override
 			public void onSuccess(Object data, int flag) {
 				Log.i("TPush", "注册成功，设备token为：" + data);
-				ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-				clipboardManager.setText(data.toString());
-				UIUtil.toast("token 已经成功复制到剪切板 , 请使用 token 调试");
+				if(UIUtil.isDebug()) {
+					ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+					clipboardManager.setText(data.toString());
+					UIUtil.debugToast("token 已经成功复制到剪切板 , 请使用 token 调试");
+				}
 			}
 			@Override
 			public void onFail(Object data, int errCode, String msg) {

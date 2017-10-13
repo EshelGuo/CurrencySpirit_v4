@@ -14,6 +14,9 @@ public class UIUtil {
 
 	private static Toast mToast;
 	private static boolean debug;
+	public static boolean isDebug(){
+		return debug;
+	}
 	public static void setDebug(boolean isDebug){
 		debug = isDebug;
 	}
@@ -28,25 +31,42 @@ public class UIUtil {
 		if(debug)
 			toast(text);
 	}
-	public static void toast(final CharSequence text){
+	public static void debugShortToast(CharSequence text){
+		if(debug)
+			toastShort(text);
+	}
+	public static void toastShort(final CharSequence text){
 		if(Thread.currentThread().getName().equals(CurrencySpiritApp.getMainThreadName()))
-			showToast(text);
+			showToast(0,text);
 		else
 			CurrencySpiritApp.getApp().getHandler().post(new Runnable() {
 				@Override
 				public void run() {
-					showToast(text);
+					showToast(0,text);
 				}
 			});
 	}
-	private static void showToast(CharSequence text){
+	public static void toast(final CharSequence text){
+		if(Thread.currentThread().getName().equals(CurrencySpiritApp.getMainThreadName()))
+			showToast(1,text);
+		else
+			CurrencySpiritApp.getApp().getHandler().post(new Runnable() {
+				@Override
+				public void run() {
+					showToast(1,text);
+				}
+			});
+	}
+	private static void showToast(int longorshort,CharSequence text){
 		if(mToast == null) {
 			synchronized (Toast.class) {
 				if(mToast == null) {
-					mToast = Toast.makeText(CurrencySpiritApp.getContext(), text, Toast.LENGTH_LONG);
+					mToast = Toast.makeText(CurrencySpiritApp.getContext(), text,
+							longorshort == 0 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
 				}
 			}
 		}else {
+			mToast.setDuration(longorshort == 0 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
 			mToast.setText(text);
 		}
 		mToast.show();

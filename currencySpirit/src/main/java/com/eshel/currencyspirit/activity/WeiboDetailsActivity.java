@@ -50,9 +50,6 @@ public class WeiboDetailsActivity extends WebActivity {
 		public TitleHolder() {
 			mView = View.inflate(WeiboDetailsActivity.this, R.layout.activity_weibo_details, null);
 			ButterKnife.bind(this, mView);
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				mRlTitle.setElevation(HomeActivity.titleElevation);
-			}
 		}
 	}
 }

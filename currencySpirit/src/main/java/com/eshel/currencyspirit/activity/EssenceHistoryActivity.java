@@ -56,7 +56,7 @@ public class EssenceHistoryActivity extends BaseActivity {
 		setContentView(R.layout.activity_essence_history);
 		ButterKnife.bind(this);
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			mTitle.setElevation(HomeActivity.titleElevation);
+			mTitle.setElevation(DensityUtil.dp2px(HomeActivity.titleElevation/2));
 		}
 		init();
 		EssenceViewModel.getEssenceDataFromHistory();

@@ -24,6 +24,7 @@ private static Handler mHandler;
 		UtilManager.initUtils();
 	}
 
+
 	@Override
 	public void onTerminate() {
 		UtilManager.deinitUtils();

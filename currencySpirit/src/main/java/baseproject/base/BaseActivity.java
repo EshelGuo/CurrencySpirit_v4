@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 
+import baseproject.util.Log;
+
 /**
  * 项目名称: BaseProject
  * 创建人: Eshel
@@ -20,6 +22,7 @@ public class BaseActivity extends AppCompatActivity {
 	public static BaseActivity getActivity(Class clazz){
 		return activitys.get(clazz);
 	}
+	private static BaseActivity topActivity;
 	private static HashMap<Class,BaseActivity> activitys = new HashMap<>();
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,11 +39,21 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		topActivity = this;
+		if(topActivity != null)
+			Log.i("curentTopActivity: "+topActivity);
+		else
+			Log.i("curentTopActivity: null");
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		topActivity = null;
+		if(topActivity != null)
+			Log.i("curentTopActivity: "+topActivity);
+		else
+			Log.i("curentTopActivity: null");
 	}
 
 	@Override
@@ -58,5 +71,8 @@ public class BaseActivity extends AppCompatActivity {
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null)
 			actionBar.hide();
+	}
+	public static BaseActivity getTopActivity(){
+		return topActivity;
 	}
 }

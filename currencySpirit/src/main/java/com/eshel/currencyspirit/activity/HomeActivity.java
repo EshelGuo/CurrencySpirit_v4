@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.R;
 import com.eshel.currencyspirit.factory.FragmentFactory;
 import com.eshel.currencyspirit.fragment.CurrencyFragment;
@@ -234,10 +235,15 @@ public class HomeActivity extends BaseActivity {
 		if(currentTime - lastTime < exitIntervalTime){
 			super.onBackPressed();
 			lastTime = 0;
-//			System.exit(0);
+			exitApp();
 		}else {
 			lastTime = 0;
 			onBackPressed();
 		}
+	}
+
+	private void exitApp() {
+		CurrencySpiritApp.isExit = true;
+//		System.exit(0);
 	}
 }

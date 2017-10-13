@@ -52,6 +52,7 @@ public class SplashActivity extends BaseActivity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		getWindow().setBackgroundDrawableResource(R.drawable.splash);
 		super.onCreate(savedInstanceState);
+		CurrencySpiritApp.isExit = false;
 		ActionBar actionBar = getSupportActionBar();
 		if(actionBar != null)
 			actionBar.hide();

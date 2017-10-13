@@ -1,18 +1,20 @@
-package com.eshel.currencyspirit.receiver;
+package xgpush.receiver;
 
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.eshel.currencyspirit.CurrencySpiritApp;
 import com.eshel.currencyspirit.activity.HomeActivity;
+import com.eshel.currencyspirit.activity.SplashActivity;
 import com.eshel.currencyspirit.bean.XGNotification;
+import com.eshel.currencyspirit.util.ProcessUtil;
 import com.eshel.currencyspirit.util.UIUtil;
 import com.tencent.android.tpush.XGPushBaseReceiver;
 import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushRegisterResult;
 import com.tencent.android.tpush.XGPushShowedResult;
 import com.tencent.android.tpush.XGPushTextMessage;
-import com.tencent.mid.util.Util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import baseproject.util.Log;
-import xgpush.NotificationService;
 
 /**
  * Created by guoshiwen on 2017/10/10.
@@ -32,7 +33,7 @@ public class XGMessageReceiver extends XGPushBaseReceiver {
 	public static final String LogTag = "TPushReceiver";
 
 	private void show(String text) {
-		UIUtil.toast(text);
+		UIUtil.debugToast(text);
 	}
 	// 通知展示
 	@Override
@@ -53,6 +54,7 @@ public class XGMessageReceiver extends XGPushBaseReceiver {
 				.format(Calendar.getInstance().getTime()));
 //		NotificationService.getInstance(context).save(notific);
 //		context.sendBroadcast(intent);
+		// TODO: 2017/10/13 需要将消息展示到通知栏
 		show("您有1条新消息, " + "通知被展示 ， " + notifiShowedRlt.toString());
 		Log.i("LC","+++++++++++++++++++++++++++++展示通知的回调");
 	}
@@ -109,22 +111,29 @@ public class XGMessageReceiver extends XGPushBaseReceiver {
 			return;
 		}
 		Log.e("LC","++++++++++++++++++");
-		Intent intent = new Intent(context, HomeActivity.class);
-		//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		context.startActivity(intent);
 		String text = "";
 		if (message.getActionType() == XGPushClickedResult.NOTIFACTION_CLICKED_TYPE) {
 			// 通知在通知栏被点击啦。。。。。
 			// APP自己处理点击的相关动作
 			// 这个动作可以在activity的onResume也能监听，请看第3点相关内容
 			text = "通知被打开 :" + message;
+			message.getCustomContent();
+			if(ProcessUtil.appIsForeground()){
+				// app 在前台
+			}else {
+				if (CurrencySpiritApp.isExit) {
+					ProcessUtil.moveAppToForeground();
+				} else {
+					Intent intent = new Intent(context, SplashActivity.class);
+					context.startActivity(intent);
+				}
+			}
 		} else if (message.getActionType() == XGPushClickedResult.NOTIFACTION_DELETED_TYPE) {
 			// 通知被清除啦。。。。
 			// APP自己处理通知被清除后的相关动作
 			text = "通知被清除 :" + message;
 		}
-		Toast.makeText(context, "广播接收到通知被点击:" + message.toString(),
-				Toast.LENGTH_SHORT).show();
+		UIUtil.debugShortToast("广播接收到通知被点击:" + message.toString());
 		// 获取自定义key-value
 		String customContent = message.getCustomContent();
 		if (customContent != null && customContent.length() != 0) {

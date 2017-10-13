@@ -13,6 +13,7 @@ import com.eshel.currencyspirit.util.UIUtil;
 import com.eshel.model.EssenceModel;
 
 import baseproject.base.WebActivity;
+import baseproject.util.DensityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -54,9 +55,6 @@ public class EssenceDetailsActivity extends WebActivity {
 		public TitleHolder() {
 			mView = View.inflate(EssenceDetailsActivity.this, R.layout.activity_essence_details, null);
 			ButterKnife.bind(this, mView);
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				mRlTitle.setElevation(HomeActivity.titleElevation);
-			}
 		}
 	}
 }

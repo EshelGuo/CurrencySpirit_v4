@@ -89,7 +89,7 @@ public class EssenceViewModel {
 					refreshView(json,mode,ago);
 				}else {*/
 				EssenceModel.notifyView(mode,false);
-				Log.i(call.toString());
+//				Log.i(call.toString());
 				t.printStackTrace();
 			}
 		});

@@ -1,5 +1,6 @@
 package baseproject.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -13,9 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.eshel.currencyspirit.R;
+import com.eshel.currencyspirit.activity.HomeActivity;
 import com.eshel.currencyspirit.util.ThreadUtil;
 import com.eshel.currencyspirit.util.UIUtil;
 
+import baseproject.util.DensityUtil;
 import baseproject.util.Log;
 import baseproject.util.NetUtils;
 import butterknife.BindView;
@@ -45,20 +48,29 @@ public abstract class WebActivity extends BaseActivity {
 		ButterKnife.bind(this);
 		mTitle.addView(initTitleView(),
 				new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			mTitle.setElevation(DensityUtil.dp2px(HomeActivity.titleElevation/2));
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			UIUtil.debugToast("elevation: "+mTitle.getElevation());
+		}
 		mProgressBar.setProgress(0);
 		initWebView();
 	}
 
 	private void initWebView() {
-		mWvEssence.getSettings().setCacheMode(NetUtils.hasNetwork(this) ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_CACHE_ELSE_NETWORK);
-		mWvEssence.getSettings().setJavaScriptEnabled(true);
+		WebSettings settings = mWvEssence.getSettings();
+//		settings.setDefaultFontSize();
+
+		settings.setCacheMode(NetUtils.hasNetwork(this) ? WebSettings.LOAD_DEFAULT : WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		settings.setJavaScriptEnabled(true);
 		mWvEssence.addJavascriptInterface(new LoadFailedJs(this),"LoadFailedJs");
 
-		mWvEssence.getSettings().setUseWideViewPort(true);
-		mWvEssence.getSettings().setLoadWithOverviewMode(true);
-		mWvEssence.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-		mWvEssence.getSettings().setSupportZoom(true);
-		mWvEssence.getSettings().setBuiltInZoomControls(true);
+		settings.setUseWideViewPort(true);
+		settings.setLoadWithOverviewMode(true);
+		settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+		settings.setSupportZoom(true);
+		settings.setBuiltInZoomControls(true);
 
 		mWvEssence.setWebViewClient(new WebViewClient(){
 			@Override
@@ -70,7 +82,7 @@ public abstract class WebActivity extends BaseActivity {
 		mWvEssence.setWebChromeClient(new WebChromeClient(){
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
-				Log.i(newProgress);
+//				Log.i(newProgress);
 				if(newProgress == 100){
 					mProgressBar.setVisibility(View.GONE);
 					if(isReadLoad){
